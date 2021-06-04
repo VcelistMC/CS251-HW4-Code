@@ -61,6 +61,7 @@ public class SystemHandler {
             Playground newPlayground = new Playground(name, location, price_per_hour, bookingHours, owner);
 
             addPlayground(newPlayground);
+            owner.addPlayground(newPlayground);
 
             System.out.println("Playground Added!!");
         }catch(Exception e){return false;}
@@ -84,7 +85,7 @@ public class SystemHandler {
         return player;
     }
 
-    public Player loginAspOwner() {
+    public PlaygroundOwner loginAspOwner() {
         PlaygroundOwner owner = null;
         System.out.println("enter email");
         String email = this.input.next();
@@ -102,8 +103,57 @@ public class SystemHandler {
     }
 
     public void viewAllPlaygrounds(){
-        for(int i = 0; i < playgrounds.size(); i++)
+        for(int i = 0; i < playgrounds.size(); i++) {
+            System.out.println("---------------------"+i+1+"---------------------");
             playgrounds.get(i).getInfo();
+        }
     }
 
+    public void handlePlayer(Player currPlayer) {
+        while (true) {
+            System.out.println("1. Book playground\n2. view reservations\n3.exit");
+            int choice = this.input.nextInt();
+            switch (choice) {
+                case 1:
+                    viewAllPlaygrounds();
+                    int playgroundChoice = this.input.nextInt();
+                    if(playgroundChoice-1 < playgrounds.size()) {
+                        Playground currPlayground = playgrounds.get(playgroundChoice-1);
+                        currPlayground.reserve(currPlayer);
+                    }
+                    else
+                        System.out.println("Wrong choice");
+                    break;
+                case 2:
+                    ArrayList<Reservation> playerReservations = currPlayer.getReservations();
+                    for(int i = 0; i < playerReservations.size(); i++)
+                    playerReservations.get(i).getInfo();
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void handlePlaygroundOwner(PlaygroundOwner currOwner) {
+        while(true) {
+            System.out.println("1. register playground\n 2.manage reservation requests");
+            int choice = this.input.nextInt();
+            switch (choice) {
+                case 1:
+                    registerPlayground(currOwner);
+                    break;
+                case 2:
+                    System.out.println("select playground");
+                    viewAllPlaygrounds();
+                    int chosenPlaygroundind = this.input.nextInt();
+                    Playground chosenPlayground = playgrounds.get(chosenPlaygroundind-1);
+                    
+                default:
+                    break;
+            }
+        }
+    }
 }
