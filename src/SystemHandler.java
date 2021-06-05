@@ -7,6 +7,9 @@ public class SystemHandler {
     private ArrayList<PlaygroundOwner> pOwners;
     private Scanner input;
 
+    /**
+     * default ctor
+     */
     SystemHandler() {
         players = new ArrayList<Player>();
         playgrounds = new ArrayList<Playground>();
@@ -14,10 +17,25 @@ public class SystemHandler {
         input = new Scanner(System.in);
     }
 
+    /**
+     * adds a new player to the database
+     * @param player the player to be added
+     */
     public void addPlayer(Player player) { this.players.add(player); }
+    /**
+     * adds a new playground to the database
+     * @param playground the playground to be added
+     */
     public void addPlayground(Playground playground) { this.playgrounds.add(playground); }
+    /**
+     * adds a new owner to the database
+     * @param pOwner the owner to be added
+     */
     public void addOwner(PlaygroundOwner pOwner) { this.pOwners.add(pOwner); }
     
+    /**
+     * regisers a new user and adds it to the database
+     */
     public void register() {
         System.out.println("Register as a 1. player or 2. playground owner");
         int choice = this.input.nextInt();
@@ -45,6 +63,11 @@ public class SystemHandler {
         System.out.println("Registered!!");
     }
 
+    /**
+     * registers a new playground
+     * @param owner the playground's owner
+     * @return true if success, false otherwise
+     */
     public boolean registerPlayground(PlaygroundOwner owner) {
         try{
             System.out.println("enter name");
@@ -68,6 +91,10 @@ public class SystemHandler {
         return true;
     }
 
+    /**
+     * player login screen
+     * @return the player object
+     */
     public Player loginAsPlayer() {
         Player player = null;
         System.out.println("enter email");
@@ -85,6 +112,10 @@ public class SystemHandler {
         return player;
     }
 
+    /**
+     * owner login screen
+     * @return the owner object
+     */
     public PlaygroundOwner loginAspOwner() {
         PlaygroundOwner owner = null;
         System.out.println("enter email");
@@ -102,6 +133,9 @@ public class SystemHandler {
         return owner;
     }
 
+    /**
+     * prints all playgrounds
+     */
     public void viewAllPlaygrounds(){
         for(int i = 0; i < playgrounds.size(); i++) {
             System.out.println("---------------------"+i+1+"---------------------");
@@ -109,10 +143,15 @@ public class SystemHandler {
         }
     }
 
+    /**
+     * player screen function
+     * @param currPlayer the player to handle
+     */
     public void handlePlayer(Player currPlayer) {
-        while (true) {
-            System.out.println("1. Book playground\n2. view reservations\n3.exit");
-            int choice = this.input.nextInt();
+        int choice;
+        do {
+            System.out.println("1. Book playground\n2. view reservations\n3. back");
+            choice = this.input.nextInt();
             switch (choice) {
                 case 1:
                     viewAllPlaygrounds();
@@ -127,20 +166,26 @@ public class SystemHandler {
                 case 2:
                     ArrayList<Reservation> playerReservations = currPlayer.getReservations();
                     for(int i = 0; i < playerReservations.size(); i++)
-                    playerReservations.get(i).getInfo();
+                        playerReservations.get(i).getInfo();
                     break;
                 case 3:
                     break;
                 default:
-                    break;
+                    continue;
             }
         }
+        while(choice != 3);
     }
 
+    /**
+     * owner screen function
+     * @param currOwner the owner to handle
+     */
     public void handlePlaygroundOwner(PlaygroundOwner currOwner) {
-        while(true) {
-            System.out.println("1. register playground\n 2.manage reservation requests");
-            int choice = this.input.nextInt();
+        int choice;
+        do {
+            System.out.println("1. register playground\n 2.manage reservation requests\n3. back");
+            choice = this.input.nextInt()
             switch (choice) {
                 case 1:
                     registerPlayground(currOwner);
@@ -152,8 +197,9 @@ public class SystemHandler {
                     Playground chosenPlayground = playgrounds.get(chosenPlaygroundind-1);
                     
                 default:
-                    break;
+                    continue;
             }
         }
+        while(choice != 3);
     }
 }

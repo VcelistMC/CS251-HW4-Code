@@ -10,7 +10,7 @@ public class eWallet {
      */
     eWallet(){
         user = null;
-        eWalletID = "";
+        eWalletID = RandomStrGen.gen();
         currentBal = 1000;
     }
 
@@ -20,7 +20,7 @@ public class eWallet {
      */
     eWallet(User user){
         this.user = user;
-        eWalletID = "";
+        eWalletID = RandomStrGen.gen();
         currentBal = 1000;
     }
 
@@ -86,15 +86,3 @@ public class eWallet {
     }
 }
 
-/*
-static String randomString(){
-        String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder Str = new StringBuilder();
-        Random rnd = new Random();
-        while (Str.length() < 10) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * CHARS.length());
-            Str.append(CHARS.charAt(index));
-        }
-        String returnStr = Str.toString();
-        return returnStr;
- */
