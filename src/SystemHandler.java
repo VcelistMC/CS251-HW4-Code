@@ -185,16 +185,37 @@ public class SystemHandler {
         int choice;
         do {
             System.out.println("1. register playground\n 2.manage reservation requests\n3. back");
-            choice = this.input.nextInt()
+            choice = this.input.nextInt();
             switch (choice) {
                 case 1:
                     registerPlayground(currOwner);
                     break;
                 case 2:
-                    System.out.println("select playground");
-                    viewAllPlaygrounds();
+                    currOwner.viewAllPlaygrounds();
+                    ArrayList<Playground> ownerPlaygrounds = currOwner.getPlaygrounds();
+                    // for(int i = 0; i < ownerPlaygrounds.size(); i++)
+                    //     ownerPlaygrounds.get(i).getInfo();
+                    System.out.println("select playground, enter -1 to go back");
                     int chosenPlaygroundind = this.input.nextInt();
-                    Playground chosenPlayground = playgrounds.get(chosenPlaygroundind-1);
+                    if(chosenPlaygroundind - 1 < ownerPlaygrounds.size()) {
+                        Playground chosenPlayground = playgrounds.get(chosenPlaygroundind-1);
+                        ArrayList<Reservation> playgroundReservations = chosenPlayground.getReservations();
+                        chosenPlayground.viewAllReservations();
+                        // for(int i = 0; i < playgroundReservations.size(); i++)
+                        //     playgroundReservations.get(i).getInfo();
+                        System.out.println("Select reservation, enter -1 to go back");
+                        int chosenReservationInd = this.input.nextInt();
+                        if(chosenPlaygroundind-1 < playgroundReservations.size()) {
+                            Reservation chosenReservation = playgroundReservations.get(chosenReservationInd-1);
+                            System.out.println("1. Accept reservation\n2. Reject Reservation");
+                            int reservationState = this.input.nextInt();
+
+                            if(reservationState == 1)
+                                currOwner.acceptReservation(chosenReservation);
+                            else
+                                currOwner.denyReservation(chosenReservation);
+                        }
+                    }
                     
                 default:
                     continue;
