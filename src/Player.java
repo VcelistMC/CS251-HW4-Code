@@ -9,6 +9,7 @@ public class Player extends User {
      */
     Player() {
         super();
+        reservations = new ArrayList<Reservation>();
     }
 
     /**
@@ -21,7 +22,10 @@ public class Player extends User {
      */
     Player(String name, int age, String email, String password, eWallet wallet) {
         super(name, age, email, password, wallet);
+        reservations = new ArrayList<Reservation>();
     }
+
+    
 
     /**
      * get player's reservations

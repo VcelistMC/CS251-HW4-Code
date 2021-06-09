@@ -72,7 +72,7 @@ public class eWallet {
     public String getInfo(){
         String returnVal
                 = "eWallet ID: " + eWalletID + "\n"
-                + "Current Balance" + currentBal + "\n";
+                + "Current Balance: " + currentBal + "\n";
         return returnVal;
     }
 

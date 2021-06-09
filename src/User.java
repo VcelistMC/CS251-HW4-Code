@@ -45,7 +45,8 @@ public class User {
             "Name: " + name + "\n" +
             "Age: " + age + "\n" +
             "Email: " + email + "\n" +
-            "Wallet info--------------\n" + wallet.getInfo();
+            //"password: " + password + "\n"+ 
+            "-----Wallet info-----\n" + wallet.getInfo();
         
         return returnVal;
     }
@@ -91,4 +92,6 @@ public class User {
      * @param wallet the new user wallet
      */
     public void setWallet(eWallet wallet) { this.wallet = wallet; }
+
+    public String getPass(){ return password; }
 }
