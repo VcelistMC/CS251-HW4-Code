@@ -78,7 +78,7 @@ public class PlaygroundOwner extends User{
     }
 
     /**
-     * a function to manage all the setting of your playground by adding time slots and delete the play ground and manage the reservation request
+     * a function to manage all the setting of your playground by adding time slots and manage the reservation request
      */
     public void managePlayground() {
         Scanner input = new Scanner(System.in);
@@ -89,7 +89,7 @@ public class PlaygroundOwner extends User{
             Playground chosenPlayground = playgrounds.get(playgroundInd-1);
             int userChoice;
             do {
-                System.out.println("1. add a time slot\n2. delete playground\n3. manage reservation requests\n4. back");
+                System.out.println("1. add a time slot\n2. manage reservation requests\n3. back");
                 userChoice = input.nextInt();
                 switch (userChoice) {
                     case 1:
@@ -97,10 +97,6 @@ public class PlaygroundOwner extends User{
                         break;
                     
                     case 2:
-                        playgrounds.remove(playgroundInd-1);
-                        break;
-                    
-                    case 3:
                         chosenPlayground.viewAllReservations();
                         ArrayList<Reservation> playgroundReservations = chosenPlayground.getReservations();
                         System.out.println("Select reservation, enter -1 to go back");
@@ -120,7 +116,7 @@ public class PlaygroundOwner extends User{
                        continue;
                 }
             }
-            while(userChoice != 4);
+            while(userChoice != 3);
         }
         
     }
